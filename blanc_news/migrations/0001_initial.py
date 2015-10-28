@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='category',
-            field=models.ForeignKey(to='news.Category'),
+            field=models.ForeignKey(to='blanc_news.Category'),
         ),
         migrations.AddField(
             model_name='post',

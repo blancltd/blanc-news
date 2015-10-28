@@ -5,4 +5,5 @@ from django.apps import AppConfig
 
 class BlancNewsConfig(AppConfig):
     name = 'blanc_news'
-    label = 'news'
+    label = 'blanc_news'
+    verbose_name = 'News'
