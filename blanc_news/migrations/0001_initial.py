@@ -14,25 +14,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Post',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(max_length=100, db_index=True)),
-                ('slug', models.SlugField(max_length=100, unique_for_date='date')),
-                ('date', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
-                ('date_url', models.DateField(editable=False, db_index=True)),
-                ('teaser', models.TextField(blank=True)),
-                ('content', models.TextField()),
-                ('published', models.BooleanField(default=True, help_text='Post will be hidden unless this option is selected', db_index=True)),
-            ],
-            options={
-                'ordering': ('-date',),
-                'abstract': False,
-                'get_latest_by': 'date',
-                'swappable': 'NEWS_POST_MODEL',
-            },
-        ),
-        migrations.CreateModel(
             name='Category',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -44,14 +25,24 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': 'categories',
             },
         ),
-        migrations.AddField(
-            model_name='post',
-            name='category',
-            field=models.ForeignKey(to='blanc_news.Category'),
-        ),
-        migrations.AddField(
-            model_name='post',
-            name='image',
-            field=blanc_basic_assets.fields.AssetForeignKey(blank=True, to='assets.Image', null=True),
+        migrations.CreateModel(
+            name='Post',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=100, db_index=True)),
+                ('slug', models.SlugField(max_length=100, unique_for_date='date')),
+                ('date', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('date_url', models.DateField(editable=False, db_index=True)),
+                ('teaser', models.TextField(blank=True)),
+                ('content', models.TextField()),
+                ('published', models.BooleanField(default=True, help_text='Post will be hidden unless this option is selected', db_index=True)),
+                ('category', models.ForeignKey(to='blanc_news.Category')),
+                ('image', blanc_basic_assets.fields.AssetForeignKey(blank=True, to='assets.Image', null=True)),
+            ],
+            options={
+                'ordering': ('-date',),
+                'abstract': False,
+                'get_latest_by': 'date',
+            },
         ),
     ]

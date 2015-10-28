@@ -23,9 +23,7 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('blanc_news:post-list-category', (), {
-            'slug': self.slug,
-        })
+        return ('blanc_news:post-list-category', (), {'slug': self.slug})
 
 
 @python_2_unicode_compatible
@@ -38,9 +36,11 @@ class AbstractPost(models.Model):
     image = AssetForeignKey('assets.Image', null=True, blank=True)
     teaser = models.TextField(blank=True)
     content = models.TextField()
-    published = models.BooleanField(default=True,
-                                    db_index=True,
-                                    help_text='Post will be hidden unless this option is selected')
+    published = models.BooleanField(
+        default=True,
+        db_index=True,
+        help_text='Post will be hidden unless this option is selected'
+    )
 
     class Meta:
         get_latest_by = 'date'
@@ -65,5 +65,4 @@ class AbstractPost(models.Model):
 
 
 class Post(AbstractPost):
-    class Meta(AbstractPost.Meta):
-        swappable = 'NEWS_POST_MODEL'
+    pass
