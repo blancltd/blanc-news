@@ -10,6 +10,7 @@ from .models import Category, Post
 
 
 class PostListView(ArchiveIndexView):
+    allow_empty = True
     queryset = Post.objects.select_related().filter(published=True)
     date_field = 'date'
     paginate_by = getattr(settings, 'NEWS_PER_PAGE', 10)
@@ -28,11 +29,11 @@ class PostListCategoryView(PostListView):
     def get_queryset(self):
         qs = super(PostListCategoryView, self).get_queryset()
         self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        return qs.filter(category=self.category)
+        return qs.filter(category=self.category).exclude(current_version__isnull=True)
 
     def get_context_data(self, **kwargs):
         context = super(PostListCategoryView, self).get_context_data(**kwargs)
-        context['category'] = self.category
+        context['current_category'] = self.category
         return context
 
 
@@ -46,4 +47,9 @@ class PostDetailView(BlancPageDetailMixin, DateDetailView):
     queryset = Post.objects.select_related().filter(published=True)
     month_format = '%m'
     date_field = 'date_url'
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
