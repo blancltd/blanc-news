@@ -23,7 +23,7 @@ class Category(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('blanc_news:post-list-category', (), {'slug': self.slug})
+        return ('blanc-news:post-list-category', (), {'slug': self.slug})
 
 
 @python_2_unicode_compatible
@@ -35,24 +35,29 @@ class AbstractPost(models.Model):
     date_url = models.DateField(db_index=True, editable=False)
     image = AssetForeignKey('assets.Image', null=True, blank=True)
     teaser = models.TextField(blank=True)
-    content = models.TextField()
     published = models.BooleanField(
         default=True,
         db_index=True,
         help_text='Post will be hidden unless this option is selected'
     )
+    current_version = models.ForeignKey('glitter.Version', blank=True, null=True, editable=False)
 
     class Meta:
         get_latest_by = 'date'
         ordering = ('-date',)
         abstract = True
+        permissions = (
+            ('edit_page', 'Can edit page'),
+            ('publish_page', 'Can publish page'),
+            ('view_protected_page', 'Can view protected page'),
+        )
 
     def __str__(self):
         return self.title
 
     @models.permalink
     def get_absolute_url(self):
-        return ('blanc_news:post-detail', (), {
+        return ('blanc-news:post-detail', (), {
             'year': self.date_url.year,
             'month': str(self.date_url.month).zfill(2),
             'day': str(self.date_url.day).zfill(2),
