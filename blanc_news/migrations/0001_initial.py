@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('assets', '0001_initial'),
+        ('glitter', '0001_initial'),
     ]
 
     operations = [
@@ -34,15 +35,16 @@ class Migration(migrations.Migration):
                 ('date', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
                 ('date_url', models.DateField(editable=False, db_index=True)),
                 ('teaser', models.TextField(blank=True)),
-                ('content', models.TextField()),
                 ('published', models.BooleanField(default=True, help_text='Post will be hidden unless this option is selected', db_index=True)),
                 ('category', models.ForeignKey(to='blanc_news.Category')),
+                ('current_version', models.ForeignKey(blank=True, editable=False, to='glitter.Version', null=True)),
                 ('image', blanc_basic_assets.fields.AssetForeignKey(blank=True, to='assets.Image', null=True)),
             ],
             options={
                 'ordering': ('-date',),
                 'abstract': False,
                 'get_latest_by': 'date',
+                'permissions': (('edit_page', 'Can edit page'), ('publish_page', 'Can publish page'), ('view_protected_page', 'Can view protected page')),
             },
         ),
     ]
