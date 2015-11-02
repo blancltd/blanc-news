@@ -23,7 +23,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ('title',),
-                'abstract': False,
                 'verbose_name_plural': 'categories',
             },
         ),
@@ -35,7 +34,7 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=100, unique_for_date=b'date')),
                 ('date', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
                 ('date_url', models.DateField(editable=False, db_index=True)),
-                ('teaser', models.TextField(blank=True)),
+                ('summary', models.TextField(blank=True)),
                 ('published', models.BooleanField(default=True, help_text=b'Post will be hidden unless this option is selected', db_index=True)),
                 ('category', models.ForeignKey(to='blanc_news.Category')),
                 ('current_version', models.ForeignKey(blank=True, editable=False, to='glitter.Version', null=True)),
@@ -43,7 +42,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ('-date',),
-                'abstract': False,
                 'get_latest_by': 'date',
                 'permissions': (('edit_page', 'Can edit page'), ('publish_page', 'Can publish page'), ('view_protected_page', 'Can view protected page')),
             },
