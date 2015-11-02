@@ -23,6 +23,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ('title',),
+                'abstract': False,
                 'verbose_name_plural': 'categories',
             },
         ),
@@ -31,11 +32,11 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=100, db_index=True)),
-                ('slug', models.SlugField(max_length=100, unique_for_date='date')),
+                ('slug', models.SlugField(max_length=100, unique_for_date=b'date')),
                 ('date', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
                 ('date_url', models.DateField(editable=False, db_index=True)),
                 ('teaser', models.TextField(blank=True)),
-                ('published', models.BooleanField(default=True, help_text='Post will be hidden unless this option is selected', db_index=True)),
+                ('published', models.BooleanField(default=True, help_text=b'Post will be hidden unless this option is selected', db_index=True)),
                 ('category', models.ForeignKey(to='blanc_news.Category')),
                 ('current_version', models.ForeignKey(blank=True, editable=False, to='glitter.Version', null=True)),
                 ('image', blanc_basic_assets.fields.AssetForeignKey(blank=True, to='assets.Image', null=True)),
