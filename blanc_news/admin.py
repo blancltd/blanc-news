@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class PostAdmin(BlancPageAdminMixin, admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('title', 'category', 'date', 'image', 'teaser',)
+            'fields': ('title', 'category', 'date', 'image', 'summary',)
         }),
         ('Advanced options', {
             'fields': ('slug', 'published')
