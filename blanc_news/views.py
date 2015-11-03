@@ -51,5 +51,9 @@ class PostDetailView(BlancPageDetailMixin, DateDetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+
+        # Add this to display 'All news' on categories list.
+        context['news_categories'] = True
+        context['current_category'] = self.object.category
         return context
 
