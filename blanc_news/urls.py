@@ -8,7 +8,7 @@ from . import views
 urlpatterns = [
     url(r'^$',
         views.PostListView.as_view(),
-        name='post-list'),
+        name='list'),
     url(r'^category/(?P<slug>[-\w]+)/$',
         views.PostListCategoryView.as_view(),
         name='post-list-category'),

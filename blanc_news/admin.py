@@ -28,7 +28,7 @@ class PostAdmin(BlancPageAdminMixin, admin.ModelAdmin):
     date_hierarchy = 'date'
     list_display = ('title', 'date', 'category', 'published')
     list_editable = ('published',)
-    list_filter = ('published', 'date', 'category')
+    list_filter = ('published', 'date', 'category__title')
     prepopulated_fields = {
         'slug': ('title',)
     }

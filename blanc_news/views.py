@@ -25,7 +25,7 @@ class PostListView(PostMixin, ArchiveIndexView):
 
 
 class PostListCategoryView(PostListView):
-    template_name_suffix = '_list_category'
+    template_name_suffix = '_category_list'
 
     def get_queryset(self):
         qs = super(PostListCategoryView, self).get_queryset()
