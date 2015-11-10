@@ -1,0 +1,4 @@
+{{ object.description }}
+{{ object.title }}
+{{ object.date_url }}
+{{ object.category }}
