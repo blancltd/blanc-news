@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import blanc_pages.assets.fields
 import django.utils.timezone
-import blanc_basic_assets.fields
 
 
 class Migration(migrations.Migration):
@@ -17,33 +17,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(max_length=100, db_index=True)),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('title', models.CharField(db_index=True, max_length=100)),
                 ('slug', models.SlugField(unique=True, max_length=100)),
             ],
             options={
-                'ordering': ('title',),
                 'verbose_name_plural': 'categories',
+                'ordering': ('title',),
             },
         ),
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('title', models.CharField(max_length=100, db_index=True)),
-                ('slug', models.SlugField(max_length=100, unique_for_date=b'date')),
+                ('id', models.AutoField(primary_key=True, verbose_name='ID', serialize=False, auto_created=True)),
+                ('published', models.BooleanField(default=True, db_index=True)),
+                ('title', models.CharField(db_index=True, max_length=100)),
+                ('slug', models.SlugField(unique_for_date='date', max_length=100)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
-                ('date_url', models.DateField(editable=False, db_index=True)),
+                ('date_url', models.DateField(db_index=True, editable=False)),
                 ('summary', models.TextField(blank=True)),
-                ('published', models.BooleanField(default=True, help_text=b'Post will be hidden unless this option is selected', db_index=True)),
                 ('category', models.ForeignKey(to='blanc_news.Category')),
-                ('current_version', models.ForeignKey(blank=True, editable=False, to='glitter.Version', null=True)),
-                ('image', blanc_basic_assets.fields.AssetForeignKey(blank=True, to='assets.Image', null=True)),
+                ('current_version', models.ForeignKey(null=True, to='glitter.Version', blank=True, editable=False)),
+                ('image', blanc_pages.assets.fields.AssetForeignKey(null=True, to='assets.Image', blank=True)),
             ],
             options={
-                'ordering': ('-date',),
                 'get_latest_by': 'date',
-                'permissions': (('edit_page', 'Can edit page'), ('publish_page', 'Can publish page'), ('view_protected_page', 'Can view protected page')),
+                'ordering': ('-date',),
+                'abstract': False,
+                'default_permissions': ('add', 'change', 'delete', 'edit', 'publish'),
             },
         ),
     ]

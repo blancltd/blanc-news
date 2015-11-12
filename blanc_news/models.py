@@ -5,7 +5,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
-from blanc_basic_assets.fields import AssetForeignKey
+from blanc_pages.assets.fields import AssetForeignKey
+from blanc_pages.mixins import GlitterMixin
 
 
 @python_2_unicode_compatible
@@ -25,7 +26,7 @@ class Category(models.Model):
 
 
 @python_2_unicode_compatible
-class Post(models.Model):
+class Post(GlitterMixin):
     title = models.CharField(max_length=100, db_index=True)
     category = models.ForeignKey('blanc_news.Category')
     slug = models.SlugField(max_length=100, unique_for_date='date')
@@ -33,21 +34,10 @@ class Post(models.Model):
     date_url = models.DateField(db_index=True, editable=False)
     image = AssetForeignKey('assets.Image', null=True, blank=True)
     summary = models.TextField(blank=True)
-    published = models.BooleanField(
-        default=True,
-        db_index=True,
-        help_text='Post will be hidden unless this option is selected'
-    )
-    current_version = models.ForeignKey('glitter.Version', blank=True, null=True, editable=False)
 
-    class Meta:
+    class Meta(GlitterMixin.Meta):
         get_latest_by = 'date'
         ordering = ('-date',)
-        permissions = (
-            ('edit_page', 'Can edit page'),
-            ('publish_page', 'Can publish page'),
-            ('view_protected_page', 'Can view protected page'),
-        )
 
     def __str__(self):
         return self.title
@@ -64,4 +54,3 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.date_url = self.date.date()
         super(Post, self).save(*args, **kwargs)
-
