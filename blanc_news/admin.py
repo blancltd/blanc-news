@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 
-from blanc_pages.admin import BlancPageAdminMixin
+from blanc_pages.admin import BlancPageAdminMixin, BlancPagePublishedFilter
 
 from .models import Category, Post
 
@@ -21,13 +21,12 @@ class PostAdmin(BlancPageAdminMixin, admin.ModelAdmin):
             'fields': ('title', 'category', 'date', 'image', 'summary',)
         }),
         ('Advanced options', {
-            'fields': ('slug', 'published')
+            'fields': ('slug',)
         }),
     )
     date_hierarchy = 'date'
-    list_display = ('title', 'date', 'category', 'published')
-    list_editable = ('published',)
-    list_filter = ('published', 'date', 'category__title')
+    list_display = ('title', 'date', 'category', 'is_published')
+    list_filter = (BlancPagePublishedFilter, 'date', 'category')
     prepopulated_fields = {
         'slug': ('title',)
     }
