@@ -2,9 +2,10 @@
 
 from django.contrib import admin
 
+from blanc_pages import block_admin
 from blanc_pages.admin import BlancPageAdminMixin, BlancPagePublishedFilter
 
-from .models import Category, Post
+from .models import Category, LatestNewsBlock, Post
 
 
 @admin.register(Category)
@@ -30,3 +31,7 @@ class PostAdmin(BlancPageAdminMixin, admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ('title',)
     }
+
+
+block_admin.site.register(LatestNewsBlock)
+block_admin.site.register_block(LatestNewsBlock, 'News')

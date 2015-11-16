@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -6,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.utils import timezone
 
 from blanc_pages.assets.fields import AssetForeignKey
+from blanc_pages.models import BaseBlock
 from blanc_pages.mixins import GlitterMixin
 
 
@@ -54,3 +56,10 @@ class Post(GlitterMixin):
     def save(self, *args, **kwargs):
         self.date_url = self.date.date()
         super(Post, self).save(*args, **kwargs)
+
+
+class LatestNewsBlock(BaseBlock):
+    category = models.ForeignKey('blanc_news.Category', null=True, blank=True)
+
+    class Meta:
+        verbose_name = 'latest news'
