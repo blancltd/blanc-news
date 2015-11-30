@@ -34,4 +34,4 @@ class PostAdmin(BlancPageAdminMixin, admin.ModelAdmin):
 
 
 block_admin.site.register(LatestNewsBlock)
-block_admin.site.register_block(LatestNewsBlock, 'News')
+block_admin.site.register_block(LatestNewsBlock, 'App Blocks')
