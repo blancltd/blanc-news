@@ -22,7 +22,7 @@ class PostAdmin(BlancPageAdminMixin, admin.ModelAdmin):
             'fields': ('title', 'category', 'date', 'image', 'summary',)
         }),
         ('Advanced options', {
-            'fields': ('slug',)
+            'fields': ('slug', 'published',)
         }),
     )
     date_hierarchy = 'date'
