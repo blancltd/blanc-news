@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 #!/usr/bin/env python
 from setuptools import setup, find_packages
 
@@ -19,7 +17,7 @@ setup(
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
-        'License :: OSI Approved :: BSD 3 clause',
+        'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
