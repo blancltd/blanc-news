@@ -16,7 +16,7 @@ class NewsFeed(Feed):
 
     def items(self):
         feed_limit = getattr(settings, 'NEWS_FEED_LIMIT', 10)
-        return Post.objects.published()[:feed_limit]
+        return Post.objects.published().filter(date__lte=timezone.now())[:feed_limit]
 
     def item_description(self, obj):
         return obj.summary
