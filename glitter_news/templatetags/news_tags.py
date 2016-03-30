@@ -15,14 +15,12 @@ def get_news_categories():
 
 @register.assignment_tag
 def get_news_months():
-    return Post.objects.filter(
-        published=True, date__lte=timezone.now()).dates('date_url', 'month')
+    return Post.objects.published().filter(date__lte=timezone.now()).dates('date_url', 'month')
 
 
 @register.assignment_tag
 def get_latest_news(count, category=None):
-    post_list = Post.objects.select_related().filter(
-        published=True, date__lte=timezone.now())
+    post_list = Post.objects.published().select_related().filter(date__lte=timezone.now())
 
     # Optional filter by category
     if category is not None:
