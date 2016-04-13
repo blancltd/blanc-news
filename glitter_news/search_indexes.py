@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.utils import timezone
 from haystack import indexes
 
 from .models import Post
@@ -12,8 +13,5 @@ class PostIndex(indexes.SearchIndex, indexes.Indexable):
         return Post
 
     def index_queryset(self, using=None):
-        return self.get_model().objects.select_related().filter(
-            published=True
-        ).exclude(
-            current_version=None
-        )
+        return self.get_model().objects.published().select_related().filter(
+            date__lte=timezone.now())
