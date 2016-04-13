@@ -31,6 +31,7 @@ class Category(models.Model):
 class Post(GlitterMixin):
     title = models.CharField(max_length=100, db_index=True)
     category = models.ForeignKey('glitter_news.Category')
+    author = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(max_length=100, unique_for_date='date')
     date = models.DateTimeField(default=timezone.now, db_index=True)
     date_url = models.DateField(db_index=True, editable=False)

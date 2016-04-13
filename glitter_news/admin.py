@@ -19,7 +19,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
     fieldsets = (
         (None, {
-            'fields': ('title', 'category', 'date', 'image', 'summary',)
+            'fields': ('title', 'category', 'author', 'date', 'image', 'summary',)
         }),
         ('Advanced options', {
             'fields': ('published', 'slug',)
