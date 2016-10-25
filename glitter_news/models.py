@@ -41,7 +41,7 @@ class Post(GlitterMixin):
     image = AssetForeignKey('glitter_assets.Image', null=True, blank=True)
     summary = models.TextField(blank=True)
 
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
 
     class Meta(GlitterMixin.Meta):
         get_latest_by = 'date'

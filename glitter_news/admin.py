@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib import admin
 
 from glitter import block_admin
@@ -17,20 +19,28 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Post)
 class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
-    fieldsets = (
-        (None, {
-            'fields': ('title', 'category', 'author', 'date', 'image', 'summary',)
-        }),
-        ('Advanced options', {
-            'fields': ('published', 'slug',)
-        }),
-    )
     date_hierarchy = 'date'
     list_display = ('title', 'date', 'category', 'is_published')
     list_filter = (GlitterPagePublishedFilter, 'date', 'category')
     prepopulated_fields = {
         'slug': ('title',)
     }
+
+    def get_fieldsets(self, request, obj=None):
+        advanced_options = ['published', 'slug']
+
+        if getattr(settings, 'GLITTER_NEWS_TAGS', False):
+            advanced_options.append('tags')
+
+        fieldsets = (
+            ('Post', {
+                'fields': ('title', 'category', 'author', 'date', 'image', 'summary',)
+            }),
+            ('Advanced options', {
+                'fields': advanced_options
+            }),
+        )
+        return fieldsets
 
 
 block_admin.site.register(LatestNewsBlock)

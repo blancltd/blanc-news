@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from glitter.mixins import GlitterDetailMixin
 
 from django.views.generic import ArchiveIndexView, DateDetailView
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+
+from taggit.models import Tag
 
 from .models import Category, Post
 from .mixins import PostMixin
@@ -52,3 +55,16 @@ class PostDetailView(GlitterDetailMixin, DateDetailView):
         context['current_category'] = self.object.category
         return context
 
+
+class PostListTagView(PostListView):
+    template_name_suffix = '_tag_list'
+
+    def get_queryset(self):
+        qs = super(PostListTagView, self).get_queryset()
+        self.tag = get_object_or_404(Tag, slug=self.kwargs['slug'])
+        return qs.filter(tags=self.tag)
+
+    def get_context_data(self, **kwargs):
+        context = super(PostListTagView, self).get_context_data(**kwargs)
+        context['current_tag'] = self.tag
+        return context

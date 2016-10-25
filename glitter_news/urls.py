@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
+from django.conf import settings
 from django.conf.urls import url
 
 from . import views, feeds
@@ -32,3 +34,12 @@ urlpatterns = [
         name='category-feed'
     ),
 ]
+
+if getattr(settings, 'GLITTER_NEWS_TAGS', False):
+    urlpatterns += [
+        url(
+            r'^tag/(?P<slug>[-\w]+)/$',
+            views.PostListTagView.as_view(),
+            name='post-list-tag'
+        ),
+    ]
