@@ -54,4 +54,6 @@ project.
 GLITTER_NEWS_TAGS
 -----------------
 
+Default: ``False``
+
 This setting enables tags for the model ``Post`` in your project.
