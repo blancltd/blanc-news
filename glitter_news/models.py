@@ -6,6 +6,8 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
+from taggit.managers import TaggableManager
+
 from glitter.assets.fields import AssetForeignKey
 from glitter.models import BaseBlock
 from glitter.mixins import GlitterMixin
@@ -38,6 +40,8 @@ class Post(GlitterMixin):
     url = models.URLField(blank=True, editable=False)
     image = AssetForeignKey('glitter_assets.Image', null=True, blank=True)
     summary = models.TextField(blank=True)
+
+    tags = TaggableManager()
 
     class Meta(GlitterMixin.Meta):
         get_latest_by = 'date'
