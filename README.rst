@@ -22,8 +22,7 @@ You can get **django-glitter-news** by using **pip**:
 Prerequisites
 -------------
 
-Make sure you add ``'glitter_news'`` and ``'taggit'`` to your ``INSTALLED_APPS`` 
-setting:
+Make sure you add ``'glitter_news'`` and ``'taggit'`` to your ``INSTALLED_APPS`` setting:
 
 .. code-block:: python
 
