@@ -18,3 +18,15 @@ Make sure you add ``'taggit'`` to your ``INSTALLED_APPS`` setting:
         'taggit',
         # ...
     ]
+
+
+Configuration
+=============
+
+The django-glitter-news provides just one setting that you can enable in your 
+project.
+
+GLITTER_NEWS_TAGS
+-----------------
+
+This setting enables tags for the model ``Post`` in your project.
