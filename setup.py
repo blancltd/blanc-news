@@ -21,6 +21,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'django-glitter',
+        'django-taggit',
     ],
     classifiers=[
         'Environment :: Web Environment',
