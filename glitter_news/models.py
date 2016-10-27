@@ -56,10 +56,13 @@ class Post(GlitterMixin):
         if self.url:
             url = self.url
         else:
+            publication_date = self.date
+            if timezone.is_aware(publication_date):
+                publication_date = timezone.localtime(publication_date)
             params = {
-                'year': self.date.year,
-                'month': str(self.date.month).zfill(2),
-                'day': str(self.date.day).zfill(2),
+                'year': publication_date.strftime('%Y'),
+                'month': publication_date.strftime('%m'),
+                'day': publication_date.strftime('%d'),
                 'slug': self.slug,
             }
             url = reverse('glitter-news:post-detail', kwargs=params)
