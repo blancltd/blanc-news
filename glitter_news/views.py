@@ -44,7 +44,7 @@ class PostListCategoryView(PostListView):
 class PostDetailView(GlitterDetailMixin, DateDetailView):
     queryset = Post.objects.select_related().filter(published=True)
     month_format = '%m'
-    date_field = 'date_url'
+    date_field = 'date'
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)

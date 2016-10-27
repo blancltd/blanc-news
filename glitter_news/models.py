@@ -36,7 +36,7 @@ class Post(GlitterMixin):
     author = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(max_length=100, unique_for_date='date')
     date = models.DateTimeField(default=timezone.now, db_index=True)
-    date_url = models.DateField(db_index=True, editable=False)
+    # Is in used in overriding get_absolute_url method in case externals apps needs different URL.
     url = models.URLField(blank=True, editable=False)
     image = AssetForeignKey('glitter_assets.Image', null=True, blank=True)
     summary = models.TextField(blank=True)
@@ -57,17 +57,13 @@ class Post(GlitterMixin):
             url = self.url
         else:
             params = {
-                'year': self.date_url.year,
-                'month': str(self.date_url.month).zfill(2),
-                'day': str(self.date_url.day).zfill(2),
+                'year': self.date.year,
+                'month': str(self.date.month).zfill(2),
+                'day': str(self.date.day).zfill(2),
                 'slug': self.slug,
             }
             url = reverse('glitter-news:post-detail', kwargs=params)
         return url
-
-    def save(self, *args, **kwargs):
-        self.date_url = self.date.date()
-        super(Post, self).save(*args, **kwargs)
 
 
 class LatestNewsBlock(BaseBlock):

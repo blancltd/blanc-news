@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django import template
 from django.utils import timezone
@@ -15,7 +16,7 @@ def get_news_categories():
 
 @register.assignment_tag
 def get_news_months():
-    return Post.objects.published().filter(date__lte=timezone.now()).dates('date_url', 'month')
+    return Post.objects.published().filter(date__lte=timezone.now()).dates('date', 'month')
 
 
 @register.assignment_tag
