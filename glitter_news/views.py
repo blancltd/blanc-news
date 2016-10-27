@@ -7,8 +7,6 @@ from django.views.generic import ArchiveIndexView, DateDetailView
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 
-from taggit.models import Tag
-
 from .models import Category, Post
 from .mixins import PostMixin
 
@@ -61,7 +59,7 @@ class PostListTagView(PostListView):
 
     def get_queryset(self):
         qs = super(PostListTagView, self).get_queryset()
-        self.tag = get_object_or_404(Tag, slug=self.kwargs['slug'])
+        self.tag = get_object_or_404(Post.tags.all(), slug=self.kwargs['slug'])
         return qs.filter(tags=self.tag)
 
     def get_context_data(self, **kwargs):
