@@ -52,7 +52,7 @@ class PostDetailView(GlitterDetailMixin, DateDetailView):
         post_edit_permission = '{}.edit_{}'.format(
             qs.model._meta.app_label, qs.model._meta.model_name
         )
-        if self.request.user.is_superuser or self.request.user.has_perm(post_edit_permission):
+        if self.request.user.has_perm(post_edit_permission):
             return True
         return False
 
