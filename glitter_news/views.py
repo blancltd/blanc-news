@@ -45,8 +45,14 @@ class PostDetailView(GlitterDetailMixin, DateDetailView):
     date_field = 'date'
 
     def get_allow_future(self):
-        """ Only superusers can edit future posts. """
-        if self.request.user.is_superuser:
+        """
+        Only superusers and users with the permission can edit the post.
+        """
+        qs = self.get_queryset()
+        post_edit_permission = '{}.edit_{}'.format(
+            qs.model._meta.app_label, qs.model._meta.model_name
+        )
+        if self.request.user.is_superuser or self.request.user.has_perm(post_edit_permission):
             return True
         return False
 
