@@ -44,6 +44,18 @@ class PostDetailView(GlitterDetailMixin, DateDetailView):
     month_format = '%m'
     date_field = 'date'
 
+    def get_allow_future(self):
+        """
+        Only superusers and users with the permission can edit the post.
+        """
+        qs = self.get_queryset()
+        post_edit_permission = '{}.edit_{}'.format(
+            qs.model._meta.app_label, qs.model._meta.model_name
+        )
+        if self.request.user.has_perm(post_edit_permission):
+            return True
+        return False
+
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
