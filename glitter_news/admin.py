@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.contrib import admin
 
+from adminsortable.admin import SortableAdmin
 from glitter import block_admin
 from glitter.admin import GlitterAdminMixin, GlitterPagePublishedFilter
 
@@ -11,7 +12,7 @@ from .models import Category, LatestNewsBlock, Post
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(SortableAdmin):
     prepopulated_fields = {
         'slug': ('title',)
     }

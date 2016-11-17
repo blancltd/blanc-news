@@ -6,6 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse
 from django.utils import timezone
 
+from adminsortable.models import SortableMixin
 from taggit.managers import TaggableManager
 
 from glitter.assets.fields import AssetForeignKey
@@ -14,13 +15,14 @@ from glitter.mixins import GlitterMixin
 
 
 @python_2_unicode_compatible
-class Category(models.Model):
+class Category(SortableMixin):
     title = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, unique=True)
+    order = models.PositiveIntegerField(default=0, editable=False, db_index=True)
 
     class Meta:
         verbose_name_plural = 'categories'
-        ordering = ('title',)
+        ordering = ('order',)
 
     def __str__(self):
         return self.title

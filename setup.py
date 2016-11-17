@@ -22,6 +22,7 @@ setup(
     install_requires=[
         'django-glitter',
         'django-taggit>=0.21.3',
+        'django-admin-sortable>=2.0.0',
     ],
     classifiers=[
         'Environment :: Web Environment',
