@@ -22,7 +22,8 @@ You can get **django-glitter-news** by using **pip**:
 Prerequisites
 -------------
 
-Make sure you add ``'glitter_news'`` and ``'taggit'`` to your ``INSTALLED_APPS`` setting:
+Make sure you add ``'glitter_news'``, ``'taggit'`` and ``'adminsortable'`` to your
+``INSTALLED_APPS`` setting:
 
 .. code-block:: python
 
@@ -30,6 +31,7 @@ Make sure you add ``'glitter_news'`` and ``'taggit'`` to your ``INSTALLED_APPS``
         # ...
         'glitter_news',
         'taggit',
+        'adminsortable',
         # ...
     ]
 
@@ -47,7 +49,7 @@ Add the Glitter News URLs to your project’s URLconf as follows:
 Configuration
 =============
 
-The django-glitter-news provides just one setting that you can enable in your 
+The django-glitter-news provides just one setting that you can enable in your
 project.
 
 GLITTER_NEWS_TAGS
