@@ -26,11 +26,11 @@ def get_latest_news(count, category='', tags=''):
     post_list = Post.objects.published().select_related().filter(date__lte=timezone.now())
 
     # Optional filter by category
-    if not category.strip():
+    if category.strip():
         post_list = post_list.filter(category__slug=category)
     
     # Optional filter by tags
-    if not tags.strip(): 
+    if tags.strip(): 
         post_list = post_list.filter(tags__name__in=utils.parse_tags(tags))
 
     return post_list[:count]
