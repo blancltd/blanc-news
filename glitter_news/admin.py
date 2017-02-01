@@ -35,7 +35,7 @@ class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
 
         fieldsets = (
             ('Post', {
-                'fields': ('title', 'category', 'author', 'date', 'image', 'summary',)
+                'fields': ('title', 'category', 'author', 'date', 'image', 'summary', 'tags')
             }),
             ('Advanced options', {
                 'fields': advanced_options

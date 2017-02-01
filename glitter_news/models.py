@@ -73,6 +73,7 @@ class Post(GlitterMixin):
 
 class LatestNewsBlock(BaseBlock):
     category = models.ForeignKey('glitter_news.Category', null=True, blank=True)
+    tags = models.CharField(max_length=255, blank=True)
 
     class Meta:
         verbose_name = 'latest news'
