@@ -35,6 +35,7 @@ class Category(SortableMixin):
 class Post(GlitterMixin):
     title = models.CharField(max_length=100, db_index=True)
     category = models.ForeignKey('glitter_news.Category')
+    is_sticky = models.BooleanField(default=False)
     author = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(max_length=100, unique_for_date='date')
     date = models.DateTimeField(default=timezone.now, db_index=True)
@@ -47,7 +48,7 @@ class Post(GlitterMixin):
 
     class Meta(GlitterMixin.Meta):
         get_latest_by = 'date'
-        ordering = ('-date',)
+        ordering = ('-is_sticky', '-date',)
 
     def __str__(self):
         return self.title

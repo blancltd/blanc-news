@@ -21,7 +21,7 @@ class CategoryAdmin(SortableAdmin):
 @admin.register(Post)
 class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
     date_hierarchy = 'date'
-    list_display = ('title', 'date', 'category', 'is_published')
+    list_display = ('title', 'date', 'category', 'is_sticky', 'is_published')
     list_filter = (GlitterPagePublishedFilter, 'date', 'category')
     prepopulated_fields = {
         'slug': ('title',)
@@ -35,7 +35,9 @@ class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
 
         fieldsets = (
             ('Post', {
-                'fields': ('title', 'category', 'author', 'date', 'image', 'summary', 'tags')
+                'fields': (
+                    'title', 'category', 'is_sticky', 'author', 'date', 'image', 'summary', 'tags',
+                )
             }),
             ('Advanced options', {
                 'fields': advanced_options
