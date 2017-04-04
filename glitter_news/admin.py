@@ -21,23 +21,21 @@ class CategoryAdmin(SortableAdmin):
 @admin.register(Post)
 class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
     date_hierarchy = 'date'
-    list_display = ('title', 'date', 'category', 'is_sticky', 'is_published')
+    list_display = ('title', 'date', 'category', 'is_published', 'is_sticky')
     list_filter = (GlitterPagePublishedFilter, 'date', 'category')
     prepopulated_fields = {
         'slug': ('title',)
     }
 
     def get_fieldsets(self, request, obj=None):
-        advanced_options = ['published', 'slug']
+        advanced_options = ['published', 'is_sticky', 'slug']
 
         if getattr(settings, 'GLITTER_NEWS_TAGS', False):
             advanced_options.append('tags')
 
         fieldsets = (
             ('Post', {
-                'fields': (
-                    'title', 'category', 'is_sticky', 'author', 'date', 'image', 'summary', 'tags',
-                )
+                'fields': ('title', 'category', 'author', 'date', 'image', 'summary', 'tags')
             }),
             ('Advanced options', {
                 'fields': advanced_options
