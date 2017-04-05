@@ -10,7 +10,7 @@ with open('README.rst', 'r', 'utf-8') as f:
 
 setup(
     name='django-glitter-news',
-    version='0.2.3',
+    version='0.3.0',
     description='Django Glitter News for Django',
     long_description=readme,
     url='https://github.com/blancltd/django-glitter-news',
