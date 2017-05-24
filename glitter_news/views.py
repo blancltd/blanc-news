@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.views.generic import ArchiveIndexView, DateDetailView
+
 from glitter.mixins import GlitterDetailMixin
 
-from django.views.generic import ArchiveIndexView, DateDetailView
-from django.shortcuts import get_object_or_404
-from django.conf import settings
-
-from .models import Category, Post
 from .mixins import PostMixin
+from .models import Category, Post
 
 
 class PostListView(PostMixin, ArchiveIndexView):

@@ -5,7 +5,6 @@ from django import template
 from django.utils import timezone
 
 from glitter_news.models import Category, Post
-
 from taggit import utils
 
 register = template.Library()
@@ -28,9 +27,9 @@ def get_latest_news(count, category='', tags=''):
     # Optional filter by category
     if category.strip():
         post_list = post_list.filter(category__slug=category)
-    
+
     # Optional filter by tags
-    if tags.strip(): 
+    if tags.strip():
         post_list = post_list.filter(tags__name__in=utils.parse_tags(tags))
 
     return post_list[:count]
