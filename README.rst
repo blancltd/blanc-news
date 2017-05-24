@@ -49,15 +49,43 @@ Add the Glitter News URLs to your project’s URLconf as follows:
 Configuration
 =============
 
-The django-glitter-news provides just one setting that you can enable in your
-project.
+The following options can be set in your project's `settings.py`:
 
 GLITTER_NEWS_TAGS
 -----------------
 
-Default: ``False``
-
 This setting enables tags for the model ``Post`` in your project.
+
+Default is ``False``.
+
+Example:
+
+.. code-block:: python
+    GLITTER_NEWS_TAGS = True
+
+NEWS_PER_PAGE
+-------------
+
+Set the number of news articles which will be displayed on a page.
+
+Default is ``10``.
+
+Example:
+
+.. code-block:: python
+    NEWS_PER_PAGE = 10
+
+NEWS_STICKY_ON_ALL
+------------------
+
+Disable the sticky posts functionality when displaying the list of all news.
+
+Default is ``True``.
+
+Example:
+
+.. code-block:: python
+    NEWS_STICKY_ON_ALL = False
 
 
 Developing
