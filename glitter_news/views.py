@@ -3,35 +3,49 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.utils import six
 from django.views.generic import ArchiveIndexView, DateDetailView
 
 from glitter.mixins import GlitterDetailMixin
 
-from .mixins import PostMixin
 from .models import Category, Post
 
 
-class PostListView(PostMixin, ArchiveIndexView):
+class BasePostListView(ArchiveIndexView):
     allow_empty = True
     date_field = 'date'
     paginate_by = getattr(settings, 'NEWS_PER_PAGE', 10)
     template_name_suffix = '_list'
     context_object_name = 'object_list'
+    ordering = ('-is_sticky', '-date', '-id')
+
+    def get_queryset(self):
+        queryset = Post.objects.published()
+
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, six.string_types):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
+        return queryset
 
     def get_context_data(self, **kwargs):
-        context = super(PostListView, self).get_context_data(**kwargs)
+        context = super(BasePostListView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
         context['news_categories'] = True
         return context
 
+
+class PostListView(BasePostListView):
+
     def get_ordering(self):
-        if getattr(settings, 'NEWS_NO_STICKY_ON_ALL', False):
-            return '-date'
-        else:
+        if getattr(settings, 'NEWS_STICKY_ON_ALL', True):
             return super().get_ordering()
+        else:
+            return ('-date', '-id')
 
 
-class PostListCategoryView(PostListView):
+class PostListCategoryView(BasePostListView):
     template_name_suffix = '_category_list'
 
     def get_queryset(self):

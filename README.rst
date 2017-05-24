@@ -75,17 +75,17 @@ Example:
 .. code-block:: python
     NEWS_PER_PAGE = 10
 
-NEWS_NO_STICKY_ON_ALL
----------------------
+NEWS_STICKY_ON_ALL
+------------------
 
 Disable the sticky posts functionality when displaying the list of all news.
 
-Default is ``False``.
+Default is ``True``.
 
 Example:
 
 .. code-block:: python
-    NEWS_NO_STICKY_ON_ALL = True
+    NEWS_NO_STICKY_ON_ALL = False
 
 
 Developing
