@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.views.generic import ArchiveIndexView, DateDetailView
+
 from glitter.mixins import GlitterDetailMixin
 
-from django.views.generic import ArchiveIndexView, DateDetailView
-from django.shortcuts import get_object_or_404
-from django.conf import settings
-
-from .models import Category, Post
 from .mixins import PostMixin
+from .models import Category, Post
 
 
 class PostListView(PostMixin, ArchiveIndexView):
@@ -23,6 +23,12 @@ class PostListView(PostMixin, ArchiveIndexView):
         context['categories'] = Category.objects.all()
         context['news_categories'] = True
         return context
+
+    def get_ordering(self):
+        if getattr(settings, 'NEWS_NO_STICKY_ON_ALL', False):
+            return '-date'
+        else:
+            return super().get_ordering()
 
 
 class PostListCategoryView(PostListView):
