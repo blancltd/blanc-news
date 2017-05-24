@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
 from django.core.urlresolvers import reverse
+from django.db import models
 from django.utils import timezone
+from django.utils.encoding import python_2_unicode_compatible
 
 from adminsortable.models import SortableMixin
-from taggit.managers import TaggableManager
-
 from glitter.assets.fields import AssetForeignKey
-from glitter.models import BaseBlock
 from glitter.mixins import GlitterMixin
+from glitter.models import BaseBlock
+from taggit.managers import TaggableManager
 
 
 @python_2_unicode_compatible

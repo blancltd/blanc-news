@@ -13,9 +13,7 @@ from .models import Category, LatestNewsBlock, Post
 
 @admin.register(Category)
 class CategoryAdmin(SortableAdmin):
-    prepopulated_fields = {
-        'slug': ('title',)
-    }
+    prepopulated_fields = {'slug': ('title',)}
 
 
 @admin.register(Post)
@@ -23,9 +21,7 @@ class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
     date_hierarchy = 'date'
     list_display = ('title', 'date', 'category', 'is_published', 'is_sticky')
     list_filter = (GlitterPagePublishedFilter, 'date', 'category')
-    prepopulated_fields = {
-        'slug': ('title',)
-    }
+    prepopulated_fields = {'slug': ('title',)}
 
     def get_fieldsets(self, request, obj=None):
         advanced_options = ['published', 'is_sticky', 'slug']
@@ -33,14 +29,10 @@ class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
         if getattr(settings, 'GLITTER_NEWS_TAGS', False):
             advanced_options.append('tags')
 
-        fieldsets = (
-            ('Post', {
-                'fields': ('title', 'category', 'author', 'date', 'image', 'summary', 'tags')
-            }),
-            ('Advanced options', {
-                'fields': advanced_options
-            }),
-        )
+        fieldsets = ((
+            'Post',
+            {'fields': ('title', 'category', 'author', 'date', 'image', 'summary', 'tags')}
+        ), ('Advanced options', {'fields': advanced_options}),)
         return fieldsets
 
 

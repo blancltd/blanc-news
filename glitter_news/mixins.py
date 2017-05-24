@@ -6,6 +6,7 @@ from .models import Post
 
 
 class PostMixin(object):
+
     def get_queryset(self):
         queryset = Post.objects.published()
 

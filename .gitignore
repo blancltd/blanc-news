@@ -3,3 +3,12 @@
 build
 dist
 MANIFEST
+
+# Tox
+.tox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+npm-debug.log
