@@ -85,7 +85,7 @@ Default is ``True``.
 Example:
 
 .. code-block:: python
-    NEWS_NO_STICKY_ON_ALL = False
+    NEWS_STICKY_ON_ALL = False
 
 
 Developing
