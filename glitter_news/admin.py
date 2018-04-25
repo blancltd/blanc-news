@@ -24,7 +24,7 @@ class PostAdmin(GlitterAdminMixin, admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
     def get_fieldsets(self, request, obj=None):
-        advanced_options = ['published', 'is_sticky', 'slug']
+        advanced_options = ['is_sticky', 'slug']
 
         if getattr(settings, 'GLITTER_NEWS_TAGS', False):
             advanced_options.append('tags')
