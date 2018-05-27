@@ -13,7 +13,7 @@ setup(
     version='0.3.3',
     description='Django Glitter News for Django',
     long_description=readme,
-    url='https://github.com/blancltd/django-glitter-news',
+    url='https://github.com/developersociety/django-glitter-news',
     maintainer='Blanc Ltd',
     maintainer_email='studio@blanc.ltd.uk',
     platforms=['any'],
